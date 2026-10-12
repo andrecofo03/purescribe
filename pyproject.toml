@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "purescribe"
+version = "0.1.0"
+description = "Classical DSP speech recognition. MFCC front-end, HMM-GMM acoustic models, Viterbi decoding. No neural networks, no LLMs."
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22", "scipy>=1.8"]
+
+[project.scripts]
+purescribe = "purescribe.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["purescribe*"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+[tool.pixi.dependencies]
+python = ">=3.9"
+numpy = ">=1.22"
+scipy = ">=1.8"
+
+[tool.pixi.pypi-dependencies]
+purescribe = { path = ".", editable = true }
+
+[tool.pixi.feature.dev.dependencies]
+pytest = "*"
+
+[tool.pixi.environments]
+default = { features = ["dev"], solve-group = "default" }
+
+[tool.pixi.tasks]
+purescribe = "purescribe"
+make-corpus = "python examples/make_corpus.py corpus --per-word 24"
+train-demo = { cmd = "purescribe train corpus/train -o digits.psm", depends-on = ["make-corpus"] }
+transcribe-demo = { cmd = "purescribe transcribe corpus/sequences/seq_000.wav -m digits.psm", depends-on = ["train-demo"] }
+evaluate-demo = { cmd = "python examples/evaluate.py digits.psm corpus", depends-on = ["train-demo"] }
+demo = { depends-on = ["transcribe-demo", "evaluate-demo"] }
+test = "pytest tests/"
