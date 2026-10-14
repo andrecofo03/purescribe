@@ -1,7 +1,8 @@
 """Bounded, speaker-separated Common Voice experiment; artifacts live outside the repo.
 
 Run prepare, extract, then evaluate with the same --output directory.
-The headerless reference map is CSV-quoted TSV; CV metadata is unquoted TSV.
+Only MP3 basenames present in validated/ enter the experiment. Selected
+reference rows are CSV-quoted TSV; CV metadata is unquoted TSV.
 """
 
 from __future__ import annotations
@@ -34,12 +35,23 @@ def write_json(path, value):
         stream.write("\n")
 
 
-def read_reference_map(path):
+def read_reference_map(path, audio_names=None, audit=None):
     references = {}
     seen = set()
+    local_names = {name.casefold(): name for name in audio_names} if audio_names is not None else None
+    if audit is None:
+        audit = Counter()
     with Path(path).open(encoding="utf-8-sig", newline="") as stream:
         for index, row in enumerate(csv.reader(stream, delimiter="\t", strict=True)):
             if index == 0 and row == ["path", "sentence"]:
+                continue
+            audit["records"] += 1
+            if not row:
+                audit["blank_records"] += 1
+                continue
+            # Unrelated rows may have extra export columns; never enter this experiment.
+            if local_names is not None and row[0].casefold() not in local_names:
+                audit["outside_validated"] += 1
                 continue
             if len(row) != 2:
                 raise ValueError(f"Reference record {index + 1}: expected two fields")
@@ -50,7 +62,7 @@ def read_reference_map(path):
             if name.casefold() in seen:
                 raise ValueError(f"Duplicate audio identifier: {name}")
             seen.add(name.casefold())
-            references[name] = sentence
+            references[local_names[name.casefold()] if local_names is not None else name] = sentence
     return references
 
 
@@ -140,8 +152,15 @@ def prepare(args):
     data_root, output = args.data_root.resolve(), args.output.resolve()
     if output.exists():
         raise FileExistsError(f"Use a NEW experiment directory: {output}")
+    audio_directory = data_root / "validated"
+    if not audio_directory.is_dir():
+        raise NotADirectoryError(f"Required audio directory: {audio_directory}")
+    audio_names = {path.name for path in audio_directory.iterdir()
+                   if path.is_file() and path.suffix.lower() == ".mp3"}
+    local_names = {name.casefold(): name for name in audio_names}
     reference = data_root / args.reference
-    references = read_reference_map(reference)
+    reference_audit = Counter()
+    references = read_reference_map(reference, audio_names, reference_audit)
     metadata_path = data_root / args.metadata
     metadata, disagreements = {}, []
     with metadata_path.open(encoding="utf-8-sig", newline="") as stream:
@@ -149,12 +168,13 @@ def prepare(args):
         if not {"client_id", "path", "sentence"}.issubset(reader.fieldnames or []):
             raise ValueError("Metadata requires client_id, path, sentence")
         for row in reader:
-            if row["path"] in references:
-                if row["path"] in metadata:
+            name = local_names.get((row.get("path") or "").casefold())
+            if name in references:
+                if name in metadata:
                     raise ValueError(f"Ambiguous metadata for {row['path']}")
-                metadata[row["path"]] = {key: row.get(key, "") for key in ("client_id", "locale")}
-                if row["sentence"] != references[row["path"]]:
-                    disagreements.append(row["path"])
+                metadata[name] = {key: row.get(key, "") for key in ("client_id", "locale")}
+                if row["sentence"] != references[name]:
+                    disagreements.append(name)
     usable, rejected = [], []
     for name, sentence in references.items():
         reason = None
@@ -164,9 +184,8 @@ def prepare(args):
             reason = "missing_speaker_metadata"
         elif metadata[name]["locale"] not in {"", "en"}:
             reason = "non_english"
-        audio = next((data_root / directory / name for directory in ("validated", "clips")
-                      if (data_root / directory / name).is_file()), None)
-        if audio is None:
+        audio = audio_directory / name
+        if not audio.is_file():
             reason = "missing_audio"
         if reason:
             rejected.append({"source_path": name, "reason": reason})
@@ -202,11 +221,15 @@ def prepare(args):
     assert not train_hashes & eval_hashes
     plan = {
         "data_root": str(data_root), "reference_file": str(reference),
-        "reference_format": "UTF-8 CSV-quoted TSV, two fields path/sentence, no header",
+        "reference_format": "UTF-8 CSV-quoted TSV; selected rows: two fields path/sentence, no header",
         "reference_sha256": hashlib.sha256(reference.read_bytes()).hexdigest(),
         "metadata_file": str(metadata_path), "metadata_columns": ["path", "client_id", "locale"],
         "metadata_format": "UTF-8 unquoted TSV with header; sentence audited, not substituted",
-        "source_rows": len(references), "usable_rows": len(usable), "rejected": rejected,
+        "source_rows": reference_audit["records"], "reference_audit": dict(reference_audit),
+        "audio_directory": str(audio_directory), "validated_audio_files": len(audio_names),
+        "reference_rows_in_validated": len(references),
+        "validated_audio_without_reference": sorted(audio_names - references.keys()),
+        "usable_rows": len(usable), "rejected": rejected,
         "source_metadata_text_disagreements": disagreements,
         "seed": args.seed, "split": "SHA256(seed:client_id), first 64 bits / 2^64 < 0.2 -> evaluation; missing client_id -> audio ID",
         "training_rows": len(training), "held_out_rows": len(held_out),

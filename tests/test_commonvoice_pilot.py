@@ -37,6 +37,34 @@ def test_reference_map_rejects_ambiguous_or_unsafe_identifiers(tmp_path, content
         pilot.read_reference_map(path)
 
 
+def test_reference_map_filters_unrelated_rows_before_column_validation(tmp_path):
+    path = tmp_path / "references.txt"
+    path.write_text("a.mp3\tOfficial reference\nother.mp3\tOutside validated\t\n\nb.mp3\tSecond reference\n",
+                    encoding="utf-8")
+    audit = Counter()
+    assert pilot.read_reference_map(path, {"a.mp3", "b.mp3"}, audit) == {
+        "a.mp3": "Official reference", "b.mp3": "Second reference",
+    }
+    assert audit == {"records": 4, "outside_validated": 1, "blank_records": 1}
+
+
+@pytest.mark.parametrize("content", [
+    "a.mp3\tOfficial\textra\n", "a.mp3\tFirst\na.mp3\tConflicting\n",
+    "a.mp3\tFirst\nA.mp3\tConflicting\n",
+])
+def test_reference_map_still_rejects_malformed_or_duplicate_selected_rows(tmp_path, content):
+    path = tmp_path / "references.txt"
+    path.write_text(content, encoding="utf-8")
+    with pytest.raises(ValueError):
+        pilot.read_reference_map(path, {"a.mp3"})
+
+
+def test_reference_map_resolves_windows_case_alias_to_local_basename(tmp_path):
+    path = tmp_path / "references.txt"
+    path.write_text("A.MP3\tOfficial reference\n", encoding="utf-8")
+    assert pilot.read_reference_map(path, {"a.mp3"}) == {"a.mp3": "Official reference"}
+
+
 def test_split_is_deterministic_and_keeps_speakers_together():
     records = [record(f"{speaker}-{take}.mp3", "hello", str(speaker))
                for speaker in range(30) for take in range(3)]
@@ -205,13 +233,19 @@ def test_prepare_keeps_raw_metadata_quotes_and_refuses_output_reuse(tmp_path, mo
     held_out = next(str(i) for i in range(100)
                     if int.from_bytes(pilot.rank(42, str(i))[:8], "big") / 2**64 < 0.2)
     rows += [("eval.mp3", '"Quoted evaluation', held_out)]
+    outside = ("outside.mp3", "yes", speakers[0])
     with (source / "refs.txt").open("w", encoding="utf-8", newline="") as stream:
-        csv.writer(stream, delimiter="\t").writerows((name, sentence) for name, sentence, _ in rows)
+        csv.writer(stream, delimiter="\t").writerows((name, sentence) for name, sentence, _ in [*rows, outside])
     metadata = "client_id\tpath\tsentence\tlocale\n" + "".join(
-        f"{speaker}\t{name}\t{sentence}\ten\n" for name, sentence, speaker in rows)
+        f"{speaker}\t{name.upper() if name == rows[0][0] else name}\t{sentence}\ten\n"
+        for name, sentence, speaker in [*rows, outside])
     (source / "metadata.tsv").write_text(metadata, encoding="utf-8")
     for name, _, _ in rows:
         (source / "validated" / name).write_bytes(name.encode())
+    (source / "validated" / "unmapped.mp3").write_bytes(b"no reference")
+    (source / "validated" / "notes.txt").write_text("not audio", encoding="utf-8")
+    (source / "clips").mkdir()
+    (source / "clips" / outside[0]).write_bytes(b"must never be used")
     monkeypatch.setattr(pilot.importlib.metadata, "version", lambda name: "test")
     args = Namespace(data_root=source, output=tmp_path / "experiment", reference="refs.txt",
                      metadata="metadata.tsv", seed=42, min_clips=2, goal_clips=3,
@@ -220,6 +254,13 @@ def test_prepare_keeps_raw_metadata_quotes_and_refuses_output_reuse(tmp_path, mo
     import json
     plan = json.loads((args.output / "plan.json").read_text(encoding="utf-8"))
     assert plan["usable_rows"] == len(rows)
+    assert plan["source_rows"] == len(rows) + 1
+    assert plan["validated_audio_files"] == len(rows) + 1
+    assert plan["validated_audio_without_reference"] == ["unmapped.mp3"]
+    assert plan["reference_audit"]["outside_validated"] == 1
+    assert all(r["audio"].startswith("validated/")
+               for r in [*plan["training_selected"], *plan["evaluation_selected"]])
+    assert outside[0] not in {r["source_path"] for r in plan["training_selected"]}
     assert plan["speaker_overlap"] == 0
     assert plan["source_metadata_text_disagreements"] == []
     assert plan["evaluation_selected"][0]["sentence"] == '"Quoted evaluation'
