@@ -36,7 +36,7 @@ def clean_word(word: str) -> str:
 
 def _comparison_word(word: str) -> str:
     word = word.casefold().replace("’", "'").replace("‘", "'")
-    return re.sub(r"[^\w']", "", word).strip("'")
+    return re.sub(r"^[\W_]+|[\W_]+$", "", word)
 
 
 def match_word_indices(
@@ -278,6 +278,8 @@ def main():
                 audio_array,
                 language="en",
                 word_timestamps=True,
+                # Stable TS 2.19.1 può comprimere la prima parola nella pausa iniziale.
+                suppress_silence=False,
             )
             words_list = result.all_words()
             whisper_entries = [

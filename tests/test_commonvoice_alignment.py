@@ -60,7 +60,8 @@ def test_matches_after_case_and_punctuation_normalization():
         ("he’ll", "he'll", [(0, 0)]),
         ("he'll", "hell", []),
         ("Hello,", "hello", [(0, 0)]),
-        ("hello-world", "helloworld", [(0, 0)]),
+        ("hello-world", "helloworld", []),
+        ("'We‘re!'", "we're", [(0, 0)]),
     ],
 )
 def test_comparison_normalization_preserves_internal_apostrophes(
@@ -112,7 +113,8 @@ def test_main_rejects_word_file_before_wav_retry(tmp_path, monkeypatch, capsys):
             return iter([(0, {"path": "sample.wav", "sentence": "about"})])
 
     class FakeWhisperModel:
-        def transcribe(self, audio, language, word_timestamps):
+        def transcribe(self, audio, language, word_timestamps, suppress_silence):
+            assert suppress_silence is False
             result = SimpleNamespace(
                 all_words=lambda: [SimpleNamespace(word="about", start=0.1, end=0.2)]
             )
