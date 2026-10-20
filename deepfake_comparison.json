@@ -1,0 +1,2197 @@
+{
+  "phase": "6 compare",
+  "inputs": {
+    "baseline_transcripts": "C:\\Users\\cofon\\DeepSpeak\\transcriptions",
+    "subset": "test",
+    "baseline_texts_sha256": "4433691f07cdbb47f194ec7f867387884b96122948ba18d364d4f904eec8311c",
+    "purescribe_tsv": "C:\\Users\\cofon\\purescribe\\deepfake_purescribe.tsv",
+    "purescribe_sha256": "fb9ef25e5e68096c4c6086227ead259775998d6f176be72e6b31018e9ade9536",
+    "purescribe_model_sha256": "1ed86b285f3d8c455a4c522d3d7d3966b74af3d8c4be69d41c532454fc4192c7"
+  },
+  "protocol": {
+    "video_branch": "baseline lip-reading transcripts, unchanged",
+    "audio_branch_baseline": "baseline Whisper transcripts, unchanged",
+    "normalization": "baseline standardize_text: lower case, [..] and (..) removed, um/uh/hmm/mm/mhm/mmm removed, ASCII punctuation removed, whitespace collapsed",
+    "distance": "baseline normalized_levenshtein: Levenshtein / max length on characters, 1.0 if only one text is empty, rounded to 4 decimals",
+    "threshold": 0.5,
+    "decision": "fake if distance > threshold",
+    "positive_class": "fake"
+  },
+  "videos": {
+    "baseline_videos": 124,
+    "evaluated": 120,
+    "excluded": {
+      "missing": 4
+    },
+    "baseline_incomplete": [],
+    "empty_video_transcriptions": 3,
+    "ground_truth": {
+      "real": 20,
+      "fake": 100
+    },
+    "method": {
+      "authentic": 20,
+      "facefusion": 20,
+      "hellomeme": 20,
+      "latentsync": 20,
+      "liveportrait": 20,
+      "memo": 20
+    }
+  },
+  "whisper_baseline": {
+    "tp": 77,
+    "tn": 16,
+    "fp": 4,
+    "fn": 23,
+    "accuracy": 0.775,
+    "precision": 0.9506172839506173,
+    "recall": 0.77,
+    "f1": 0.850828729281768,
+    "distance_by_ground_truth": {
+      "real": {
+        "n": 20,
+        "min": 0.0,
+        "median": 0.28755,
+        "mean": 0.290365,
+        "max": 0.6275
+      },
+      "fake": {
+        "n": 100,
+        "min": 0.2027,
+        "median": 0.6690499999999999,
+        "mean": 0.620196,
+        "max": 1.0
+      }
+    },
+    "by_method": {
+      "authentic": {
+        "n": 20,
+        "correct": 16,
+        "accuracy": 0.8,
+        "distance": {
+          "n": 20,
+          "min": 0.0,
+          "median": 0.28755,
+          "mean": 0.290365,
+          "max": 0.6275
+        }
+      },
+      "facefusion": {
+        "n": 20,
+        "correct": 16,
+        "accuracy": 0.8,
+        "distance": {
+          "n": 20,
+          "min": 0.2325,
+          "median": 0.7019,
+          "mean": 0.66442,
+          "max": 1.0
+        }
+      },
+      "hellomeme": {
+        "n": 20,
+        "correct": 20,
+        "accuracy": 1.0,
+        "distance": {
+          "n": 20,
+          "min": 0.5342,
+          "median": 0.7334499999999999,
+          "mean": 0.735595,
+          "max": 0.9178
+        }
+      },
+      "latentsync": {
+        "n": 20,
+        "correct": 15,
+        "accuracy": 0.75,
+        "distance": {
+          "n": 20,
+          "min": 0.301,
+          "median": 0.6023499999999999,
+          "mean": 0.5802050000000001,
+          "max": 0.7708
+        }
+      },
+      "liveportrait": {
+        "n": 20,
+        "correct": 15,
+        "accuracy": 0.75,
+        "distance": {
+          "n": 20,
+          "min": 0.2889,
+          "median": 0.6786,
+          "mean": 0.6275350000000001,
+          "max": 1.0
+        }
+      },
+      "memo": {
+        "n": 20,
+        "correct": 11,
+        "accuracy": 0.55,
+        "distance": {
+          "n": 20,
+          "min": 0.2027,
+          "median": 0.534,
+          "mean": 0.49322499999999997,
+          "max": 0.8
+        }
+      }
+    }
+  },
+  "purescribe": {
+    "tp": 100,
+    "tn": 0,
+    "fp": 20,
+    "fn": 0,
+    "accuracy": 0.8333333333333334,
+    "precision": 0.8333333333333334,
+    "recall": 1.0,
+    "f1": 0.9090909090909091,
+    "distance_by_ground_truth": {
+      "real": {
+        "n": 20,
+        "min": 0.5769,
+        "median": 0.7357,
+        "mean": 0.71959,
+        "max": 0.8143
+      },
+      "fake": {
+        "n": 100,
+        "min": 0.6385,
+        "median": 0.73525,
+        "mean": 0.7836270000000001,
+        "max": 1.0
+      }
+    },
+    "by_method": {
+      "authentic": {
+        "n": 20,
+        "correct": 0,
+        "accuracy": 0.0,
+        "distance": {
+          "n": 20,
+          "min": 0.5769,
+          "median": 0.7357,
+          "mean": 0.71959,
+          "max": 0.8143
+        }
+      },
+      "facefusion": {
+        "n": 20,
+        "correct": 20,
+        "accuracy": 1.0,
+        "distance": {
+          "n": 20,
+          "min": 0.6796,
+          "median": 0.7288,
+          "mean": 0.76661,
+          "max": 1.0
+        }
+      },
+      "hellomeme": {
+        "n": 20,
+        "correct": 20,
+        "accuracy": 1.0,
+        "distance": {
+          "n": 20,
+          "min": 0.7126,
+          "median": 0.7757000000000001,
+          "mean": 0.81843,
+          "max": 1.0
+        }
+      },
+      "latentsync": {
+        "n": 20,
+        "correct": 20,
+        "accuracy": 1.0,
+        "distance": {
+          "n": 20,
+          "min": 0.6385,
+          "median": 0.7047,
+          "mean": 0.72023,
+          "max": 1.0
+        }
+      },
+      "liveportrait": {
+        "n": 20,
+        "correct": 20,
+        "accuracy": 1.0,
+        "distance": {
+          "n": 20,
+          "min": 0.6797,
+          "median": 0.7984500000000001,
+          "mean": 0.841925,
+          "max": 1.0
+        }
+      },
+      "memo": {
+        "n": 20,
+        "correct": 20,
+        "accuracy": 1.0,
+        "distance": {
+          "n": 20,
+          "min": 0.6395,
+          "median": 0.7171000000000001,
+          "mean": 0.7709400000000001,
+          "max": 1.0
+        }
+      }
+    }
+  },
+  "purescribe_minus_whisper": {
+    "accuracy": {
+      "absolute": 0.05833333333333335,
+      "relative": 0.07526881720430109
+    },
+    "precision": {
+      "absolute": -0.11728395061728392,
+      "relative": -0.12337662337662333
+    },
+    "recall": {
+      "absolute": 0.22999999999999998,
+      "relative": 0.2987012987012987
+    },
+    "f1": {
+      "absolute": 0.05826217980914106,
+      "relative": 0.06847697756788657
+    },
+    "tp": {
+      "absolute": 23,
+      "relative": 0.2987012987012987
+    },
+    "tn": {
+      "absolute": -16,
+      "relative": -1.0
+    },
+    "fp": {
+      "absolute": 16,
+      "relative": 4.0
+    },
+    "fn": {
+      "absolute": -23,
+      "relative": -1.0
+    }
+  },
+  "per_video": [
+    {
+      "video": "real/227-12476.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "the fear of punishment is going to bother him",
+      "whisper": {
+        "audio_transcription": "the fear of punishment just didnt bother him",
+        "distance": 0.2,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "court level good character understand major swimming out have runs mark",
+        "distance": 0.7606,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12477.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "because here with intent at all to be a different pattern can be traced",
+      "whisper": {
+        "audio_transcription": "but considered within technical astronomy a different pattern can be traced",
+        "distance": 0.32,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "working considered was kind character problems strong mayor characters agriculture rich turn stop",
+        "distance": 0.7526,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12478.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "we apply auditory modeling to the computers speech recognition",
+      "whisper": {
+        "audio_transcription": "we apply an auditory model into the computers speech recognition",
+        "distance": 0.0938,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "then table elementary one garden far market each series seen sure things station",
+        "distance": 0.675,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12481.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "what i did yesterday was yesterday was back in many steps that were on a bad break stepped on the scale had a lunch some service took my little brother out for walking and actually and then played a little bit of con war that i wanted to clip first we did",
+      "whisper": {
+        "audio_transcription": "what i did yesterday was yesterday was back in biceps i woke up at breakfast stepped on the scale i had lunch did some surveys took my little brother out for walking and had dinner and then played a little bit of god of war and then i went to sleep for two a day",
+        "distance": 0.2634,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "once any state get give church table us could give everyone must better got sister start walking up attack paris down around history up while attack will watch names research nearest an attended would out are put war appear field character richard them players level agriculture would river work production story took director",
+        "distance": 0.7055,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12482.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "so if you can see in regards to birth control sling",
+      "whisper": {
+        "audio_transcription": "ill ask him about the first control today",
+        "distance": 0.6275,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "after us has parents island information mainly",
+        "distance": 0.7451,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12483.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "programming recess follows decades discursion research magazines here",
+      "whisper": {
+        "audio_transcription": "program note reads as follows take hands this urgent message that consists",
+        "distance": 0.5405,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "agreed and allowed it ground yellow leave sons call was however grand famous could written rights city initially peter got saw us",
+        "distance": 0.7597,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12488.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "may go in the bapai or in the boat",
+      "whisper": {
+        "audio_transcription": "the mango and papaya are in a bowl",
+        "distance": 0.6176,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "remained military own around remained period",
+        "distance": 0.75,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12489.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "please call selenizer and bring these things with you from the stores and as opposed to fresh scoopies five things slap some blue chicks maybe its not for her brother bob but we also need a small plastic snack in a big chunk troy frog for the kings chase group these things into three round packs and we will meet her we will go meet her reset the touch",
+      "whisper": {
+        "audio_transcription": "please call stella ask her to bring these things with her from the store six spoons of fresh snow peas five thick slabs of blue cheese and maybe a snack for her brother bob we also need a small plastic snake and a big toy frog for the kids she can scoop these things into threeway bags and we will go meet her wednesday at the train station",
+        "distance": 0.3371,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "he this call us daughter house her my release through given family through set us runs several production snow studies part various well result english trees instead may various black are other top popular also does common history energy eyes room guitar could does appear ancient get history state later elementary everything week river everyone government military history country history show",
+        "distance": 0.719,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12490.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "to rule person farmer tiger little help",
+      "whisper": {
+        "audio_transcription": "as a rural parttime farmers hire little help",
+        "distance": 0.3864,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "your then has role are parents person ever hold how",
+        "distance": 0.7059,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12491.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "we did not accept the diagnosis that was begrudgingly we are coming to",
+      "whisper": {
+        "audio_transcription": "we did not accept the diagnosis at once but gradually we are coming to",
+        "distance": 0.2,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "history europe can large stop color died houses are when much military art considered look",
+        "distance": 0.7333,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12492.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "will you tell me why",
+      "whisper": {
+        "audio_transcription": "will you tell me why",
+        "distance": 0.0,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "mean will feature years modern head",
+        "distance": 0.6571,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12493.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "of lashing loops the trees tend to go on and burn directly several directions",
+      "whisper": {
+        "audio_transcription": "a flash illumined the tree with a crooked bolt width in several directions",
+        "distance": 0.4675,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "lies show looks could china rather can when when became history popular sure us them",
+        "distance": 0.7381,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12495.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "figure in the corner belt slightly on temple he read a great position",
+      "whisper": {
+        "audio_transcription": "the figure in the corner belched loudly a deep liquid eruption",
+        "distance": 0.5072,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "level located river recorded dog club lived didnt recorded addition eventually",
+        "distance": 0.7821,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12496.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "therapon followed a demonstration that tara goes through ideological conflicts",
+      "whisper": {
+        "audio_transcription": "sarah pahn followed a demonstration that tyrion knows no audiological confines",
+        "distance": 0.3333,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "around up who both sir how lines small been campus station military could wooden boy market god common probably sign",
+        "distance": 0.7414,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12497.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "and adult male bumpers together are not suitable for getting shellfish",
+      "whisper": {
+        "audio_transcription": "an adult male baboons teeth are not suitable for eating shellfish",
+        "distance": 0.1714,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "am come known dog out food state mostly gold story show production",
+        "distance": 0.8143,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12498.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "i can see my box for my charger is in white cube with blue on the outside and the front of it is a charging take off it shows all the features",
+      "whisper": {
+        "audio_transcription": "i can see my box for my charger its a white cube with blue on the outside and the front of it is a charger the icon of a charger that shows all the features",
+        "distance": 0.1667,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "i died given seat your married car come large hard church its son are who able white became boys make gold long up asked out served agriculture cross children nearest central large river who i characters show low food richard history",
+        "distance": 0.6781,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12499.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "the new birth is miraculous and mysterious",
+      "whisper": {
+        "audio_transcription": "the new birth is miraculous and mysterious",
+        "distance": 0.0,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "husband few studies market western its period us",
+        "distance": 0.6458,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12500.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "the bush can use later in the smooth place glue the sheet to the dark blue background its easy to tell the depth well this is a chicken like its a rare dish rice is often served in rare bowls so that means make fine punch the box will throw it beside the punch right the hogs will finish up core garbage four hours of sitting rock to face us its hard to size the stocking its hard to settle",
+      "whisper": {
+        "audio_transcription": "the birch canoe slid on the smooth planks glued the sheet to the dark blue background its easy to tell the depth of the well these days the chicken leg is a rare dish races often served in round bowls the juice of the lemons make fine punch the pots were thrown aside the park truck the hogs were fed chopped corn and garbage for hours the steady word faced us a large size in stocking is hard to sell",
+        "distance": 0.3117,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "george it love birds to university political on must northern might school its issue took garden market end an currently returned talk could well we history history ship it might through river its could hard result understand written has table mostly chief southern one mostly could body much parts government house island upon described park rather offered side shot court greek state addition hard grand start country british youre placed but art called works themselves in for stop",
+        "distance": 0.7066,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12501.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "that is what childhood is he told himself",
+      "whisper": {
+        "audio_transcription": "that is what childhood is he told himself",
+        "distance": 0.0,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "part within has child countries city told result air",
+        "distance": 0.5769,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "real/227-12502.mp4",
+      "ground_truth": "real",
+      "method": "authentic",
+      "video_transcription": "simpler terms are built to put on the platform and the proper direction",
+      "whisper": {
+        "audio_transcription": "in simpler terms it amounts to pointing the platform in the proper direction",
+        "distance": 0.2632,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "mark english san when returned history known title find club far level mark characters company",
+        "distance": 0.7447,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11005-9615.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "thanks for watching and ill see you in the next one",
+      "whisper": {
+        "audio_transcription": "as a rule parttime farmers hire little help",
+        "distance": 0.7647,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "why ive royal wall further time far first fire level help under",
+        "distance": 0.6984,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11110-11404.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "",
+      "whisper": {
+        "audio_transcription": "im looking at a stanley 25 foot measuring tape i bought it from home depot it was the cheapest one they had i needed it to measure my moms car because i want her to go with me to pick up a table on facebook marketplace",
+        "distance": 1.0,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "but found their standing finished father food black made york but takes instead boy people gave dog but set ship small writing bad but right major ancient middle elements arms car result want river know whats need paper table much support what stop",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11111-11396.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "",
+      "whisper": {
+        "audio_transcription": "that is what childhood is he told himself",
+        "distance": 1.0,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "although tell support child could use told themselves hotel but",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11127-11390.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "and ill see you in the next video",
+      "whisper": {
+        "audio_transcription": "roy ignored the spurious data points in drawing the graphs",
+        "distance": 0.7586,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "lets but boy read award does career death for said drive end sense",
+        "distance": 0.7879,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11152-12460.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "we apply ongoing marketing to computer speaking recognitions",
+      "whisper": {
+        "audio_transcription": "we apply auditory modeling to computer speech recognition",
+        "distance": 0.3,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "there mean help only project great mother which took currently feature greek greek state data",
+        "distance": 0.7204,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11162-12475.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "it tends to be for the memory warmth or basis of the root",
+      "whisper": {
+        "audio_transcription": "tetanus could be avoided by pouring warm turpentine over a wound",
+        "distance": 0.6562,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "there take history been body took port war returned including women end",
+        "distance": 0.7042,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11171-12461.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "my favourite type of music is classical music because that is the type of music that about the piano even though i did not enjoy playing the piano very much i did however there can be more problems in the uk",
+      "whisper": {
+        "audio_transcription": "my favorite type of music is classical music because that is the type of music i grew playing up on the piano even though i did not enjoy playing the piano very much i did however enjoy hearing my boyfriend and my sister play it",
+        "distance": 0.2325,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11379-11136.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "the cards us is this is the was frightened of the the tiny so tiny i its i yeah three four is its it is like friends and friends thanks for watching and ill see you next time",
+      "whisper": {
+        "audio_transcription": "please call stella ask her to bring these things with her from the store six spoons of fresh snow peas five thick slabs of blue cheese and maybe a snack for her brother bob we also need a small plastic snake and a big toy frog for the kids she can scoop these things into three red bags and we will go meet her wednesday at the train station",
+        "distance": 0.6979,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "both please call stop we history really late these will them went history cut they state himself step sister album looking use we side play will lived police seen music we need these head fort father down hot but young soon need these all plans thing age it takes away front court became his the seen history these region led died its it leave local leave year history lived i do street minister said when",
+        "distance": 0.7333,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11388-11128.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "ill see you next time its scary",
+      "whisper": {
+        "audio_transcription": "the new birth is miraculous and mysterious",
+        "distance": 0.7857,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "he you village get seen left few race field history festival",
+        "distance": 0.7167,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11390-11112.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "yeah right name for it so so so i just do a little phrase here were going to talk about the",
+      "whisper": {
+        "audio_transcription": "cattle which died from them winter storms were referred to as the winter kill",
+        "distance": 0.7582,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "he held less type found be made series home was series version using men second mr can art typically",
+        "distance": 0.75,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11401-11117.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "ill see you next time its and its and i dont think right here so now the its i feel well well see it is fry fry i guess at least sky far cry and i just want to feed this is for a for today yours the the the the the the the the the the",
+      "whisper": {
+        "audio_transcription": "the purge canoose lid on the smooth planks glued the sheet to the dark blue background its easy to tell the death of a well these days a chicken leg is a rare dish rice is often served around bowls the juice of lemons makes fine punch the box was thrown beside the parked truck the hogs were fed chopped corn and garbage four hours of study work faced us a large size in stockings is hard to sell",
+        "distance": 0.7071,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "give church street case men high things men player space including history features you george police band town it give received let held down film level these days services again late use way character match why face off design hand canada blue health it street history went since case science a much but car stop was no will side are car much latin i today car doesnt ancient hospital line leave car french before round them such city my place asked but lot saw distance dark use got design stop",
+        "distance": 0.7243,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11402-11123.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "yes you can see i bought it and its a i",
+      "whisper": {
+        "audio_transcription": "these exclusive documents must be locked up at all times",
+        "distance": 0.7321,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "he these services listed type give men not field off do attached all town mr look",
+        "distance": 0.7407,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11404-11110.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "my fucking friends type im going to say rev i dont see and over and over lets see 14 zero numbers for more fine amp for this see you next time its so you can see as i said and last but not least its really really carefully slide here and see here its already red dollars and sell",
+      "whisper": {
+        "audio_transcription": "my favorite type of music would be the kind found that plays when playing roleplaying games which actually is a wide variety of music because theyre able to put more of an emphasis on parts that will make you want to listen to the music because it either its played once and its really good or its played throughout the entire game during random battles etc",
+        "distance": 0.6863,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "black paper side them musical which beach take hand turned cant face but late men plant game history design city use end i light need these can it died mr men go said play it alone movement it face system number band step go many few my similar season since than using take cut city died is play died six use than leave men want player friends state its hand came gave done damage back am was it second lack",
+        "distance": 0.7027,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11408-11128.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "third bar this bar lets see here it is",
+      "whisper": {
+        "audio_transcription": "the new birth is miraculous and mysterious",
+        "distance": 0.619,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "he you village get seen left few race field history festival",
+        "distance": 0.7333,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11411-11110.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "but it is fucking free its time for here is the e right fucking e hi far over the and over and over lets see 14 zero numbers up for more fun amp flights number itself the inner voice its called you can see as i said in this product its really really fun and sky colors its a d color",
+      "whisper": {
+        "audio_transcription": "my favorite type of music would be the kind found that plays when playing roleplaying games which actually is a wide variety of music because theyre able to put more of an emphasis on parts that will make you want to listen to the music because it either its played once and its really good or its played throughout the entire game during random battles etc",
+        "distance": 0.7059,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "black paper side them musical which beach take hand turned cant face but late men plant game history design city use end i light need these can it died mr men go said play it alone movement it face system number band step go many few my similar season since than using take cut city died is play died six use than leave men want player friends state its hand came gave done damage back am was it second lack",
+        "distance": 0.7002,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11586-14717.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "you carry on with me on my music and try to do it within the service",
+      "whisper": {
+        "audio_transcription": "an adult male baboons teeth are not suitable for eating shellfish",
+        "distance": 0.7794,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "its no built middle done will state events given book didnt job if we",
+        "distance": 0.7971,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11607-14741.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "the police arent selling as our business as we know from the store on sales we used to visit opening sale five six games we used to say we missed iphone 5 we also need smart planes to stay in place we fought for tickets she assumes that its a threeway pass but we dont want to take it three seconds",
+      "whisper": {
+        "audio_transcription": "please call stella ask her to bring these things with her from the store six spoons of fresh snow peas five thick slabs of blue cheese and maybe a snack for her brother bob we also need a small plastic snake and a big toy frog for the kids she can scoop these things into three red bags and we will meet her wednesday at the train station",
+        "distance": 0.6065,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "i least call however i history greek need think after took board six field first no teams five its father give good few second make case character but brother off we also need was all class study independent it put thought it its she its took these history produced better back history told be look wooden take its space its",
+        "distance": 0.6852,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11608-14723.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "you can figure out the coin and figure out the coin rip stuff",
+      "whisper": {
+        "audio_transcription": "the figure in the corner belts loudly a deep liquid eruption",
+        "distance": 0.6885,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "once leave began regular court built club please keep took could without future its",
+        "distance": 0.7229,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11784-14800.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "and move in a self car is devoted then fear downward",
+      "whisper": {
+        "audio_transcription": "it moved in a silver arc toward his throat then veered downward",
+        "distance": 0.4127,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "its movement him it later needs song far bar court history royal once but band year give down court but",
+        "distance": 0.6796,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/facefusion-11815-14784.mp4",
+      "ground_truth": "fake",
+      "method": "facefusion",
+      "video_transcription": "the new birth needs miraculous and mysterious one of the things that",
+      "whisper": {
+        "audio_transcription": "the new birth is miraculous and mysterious",
+        "distance": 0.3971,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "he makes brother period now lack us but history york us its",
+        "distance": 0.7353,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10125-10137-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "thank you",
+      "whisper": {
+        "audio_transcription": "the single curve line represents a specific formulation in a test example",
+        "distance": 0.9178,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "lets single current design read president french sent i california main ship took took quickly cup but",
+        "distance": 0.9216,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10134-10139-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "thank you im supposed to be running with me but could i have a phone call",
+      "whisper": {
+        "audio_transcription": "yesterday i played dungeons and dragons with friends it was very fun i also ended up playing overwatch with friends too so it was a pretty fun day for me but a little uneventful overall",
+        "distance": 0.7568,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10145-10138-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "in my speech about it",
+      "whisper": {
+        "audio_transcription": "the fear punishment just didnt bother him",
+        "distance": 0.7805,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "im does dark kind additional gets paper others am data",
+        "distance": 0.8148,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10150-10137-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "this is not even that im a specific recommendation its a sample",
+      "whisper": {
+        "audio_transcription": "the single curve line represents a specific formulation in a test example",
+        "distance": 0.5342,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "lets single current design read president french sent i california main ship took took quickly cup but",
+        "distance": 0.7255,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10153-10143-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "thats a major reason i was not living",
+      "whisper": {
+        "audio_transcription": "that experience holds a lesson for us all in regard to birth control today",
+        "distance": 0.7162,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "lets ive came popular western further song every kind best central together age but",
+        "distance": 0.747,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10273-10287-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "next week hes going to get his voice heard and were also about to talk to that",
+      "whisper": {
+        "audio_transcription": "that experience holds a lesson for us all in regard to birth control today",
+        "distance": 0.7051,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "im thus its appear mainly school car lack smith class top england car character party can front taken bank im",
+        "distance": 0.7339,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10276-10286-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "thank you with our lipstick and top with our lipstick we need this red dot next",
+      "whisper": {
+        "audio_transcription": "an object that i can see in my current position is my air purifier its black and its round its cylinder shaped it has little holes where the air comes in and the top where the air comes out and its a brand called pyrotex",
+        "distance": 0.7591,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "he high cant take given take hand age many greek air appear fire but black its currently instead my christian once it has with off schools was ive appear kind team car at air country sound its he hand take instead gold has great car period attack states gold",
+        "distance": 0.7907,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10286-10296-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "yesterday i read this watch a couple of movies that youve gone to and it makes a thank you the men",
+      "whisper": {
+        "audio_transcription": "yesterday i made breakfast i watched a couple of movies for halloween i did some meal prep and i hung out with my partner a lot he played video games and i watched him for a little while and then we went to bed",
+        "distance": 0.6333,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "its started gained active meet access states but has days but largest sit couple women east first agreed even but day meet instead because gets killed high king has its high current air greek greek covered parents high once take take big year game second match sit greatly no higher lot we things greek make bank are",
+        "distance": 0.769,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10294-10278-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "the voice is something unreal to me and im nervous to go",
+      "whisper": {
+        "audio_transcription": "he is forced to play for little money and must often take another job to live",
+        "distance": 0.6883,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "game distance play friends runs widely to enough after take attended child term once im",
+        "distance": 0.7126,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10295-10264-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "the five parts around chasing the motor",
+      "whisper": {
+        "audio_transcription": "the fear of punishment just didnt bother him",
+        "distance": 0.7045,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "thus year kind history feature instead band top hand thus",
+        "distance": 0.7193,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10507-10516-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "thanks for watching",
+      "whisper": {
+        "audio_transcription": "that experience holds a lesson for us all in regard to birth control today",
+        "distance": 0.8108,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10525-10513-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "were going to talk about the water that were going to talk about yeah i bow myself and actually dream that you should always put the balls off the back of your bus and look at doing the wavelength of bus",
+      "whisper": {
+        "audio_transcription": "from my current position i can see a jewelry tray with about 12 different pandora bracelets on it that i made myself i just took a bunch of charms and put them on different pandora bracelets to create the individual 12 different bracelets",
+        "distance": 0.7311,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10529-10521-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "vastly appointed and muslim nations to make a political",
+      "whisper": {
+        "audio_transcription": "flaxseed poultices and mustard plasters still are used by some persons",
+        "distance": 0.6714,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10542-10539-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "and ill see you in the next video",
+      "whisper": {
+        "audio_transcription": "they all agree that the essay is barely intelligible",
+        "distance": 0.7115,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "lets hall point given access able gets band been italian subject called then under",
+        "distance": 0.7561,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10556-10561-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "and ill see you in the next video i dont know i dont know i dont know i dont know and ill see you next time and ill see you in the next video thats what im talking about",
+      "whisper": {
+        "audio_transcription": "the burnt canoe slid on the smooth planks glued the sheet to the dark blue background its easy to tell the depth of well these days a chicken leg is a rare dish rice is often served in round bowls the juice of lemons makes a fine punch the box was thrown beside the parked truck the hogs were fed chopped corn and garbage four hours of steady work faced us a large size in stockings is hard to sell",
+        "distance": 0.7538,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "lets part case light others think point access club location took character black take key age tell been captain what there instead and take point lets we york give age who highest stop ancient heart joined round both my instead went instead take fine called french but bar access from end side upon court did lets but part further bad club according war image give lets floor power distance study war access east thats im war example face each limited making throughout state this far similar all get",
+        "distance": 0.7824,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10563-10544-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "yeah thats whats called i think its a better idea to have a better name",
+      "whisper": {
+        "audio_transcription": "the figure in the corner belched loudly a deep liquid eruption",
+        "distance": 0.8028,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "why we take period course built distance allowed greek each running two who lake always latin ship lets under",
+        "distance": 0.7248,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10639-10644-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "see you next time i dont know what youre gonna call it its just all the comments and stuff like that i was like no i dont care",
+      "whisper": {
+        "audio_transcription": "what is your favorite type of music and why my favorite type of music is probably spanish music because it fits to all type of genres like rock ugly and all that good stuff you got the left side the right side all playing at once never just one side",
+        "distance": 0.6948,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "if once decided third music him art man he through san community give park state include keep the first art friend john final rest he might rock ive me all do started thats best site west southern art career want there much works",
+        "distance": 0.7249,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10642-10643-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "thank you",
+      "whisper": {
+        "audio_transcription": "the mango and the papaya are in the bowl",
+        "distance": 0.825,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "among make allowed end cover style hard radio law",
+        "distance": 0.898,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10647-10660-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "i was burning up a rockstar climbing in the mountains",
+      "whisper": {
+        "audio_transcription": "the new burst is microillessly and mysterious",
+        "distance": 0.7358,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "he no dark produced make great race league minister give lake this",
+        "distance": 0.7576,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/hellomeme-10648-10644-real.mp4",
+      "ground_truth": "fake",
+      "method": "hellomeme",
+      "video_transcription": "thank you but you know what hes like okay i know i want to help you and we put",
+      "whisper": {
+        "audio_transcription": "what is your favorite type of music and why my favorite type of music is probably spanish music because it fits to all type of genres like rock ugly and all that good stuff you got the left side the right side all playing at once never just one side",
+        "distance": 0.7791,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "if once decided third music him art man he through san community give park state include keep the first art friend john final rest he might rock ive me all do started thats best site west southern art career want there much works",
+        "distance": 0.7904,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10125-10140-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "is my book the long term release of time",
+      "whisper": {
+        "audio_transcription": "a smile pulled at the lower strip of adhesive tape",
+        "distance": 0.68,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "best nice couple built largest church best said take",
+        "distance": 0.7115,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10131-10152-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "first note getting notes with cracks looked on the sheet the sheets a lot went well grounded i only gave them a while is that it takes a village where it starts to turn around rolls using them i didnt smell that much the max was common sense but",
+      "whisper": {
+        "audio_transcription": "the birch canoe slid on the smooth planks glued to the sheet to the dark blue background its easy to tell the depth of a well these days a chicken leg is a rare dish rice is often served in round bowls the juice of lemons make fine punch the box was thrown besides the park",
+        "distance": 0.619,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "players rich clear further airport western kind at but will took get ship lets ship track while band brown end data it said itself captain cover while together age its mainly its greek idea wish running things art considered took met am both at under case capital london spanish attack better rich ive hot first term type are",
+        "distance": 0.6985,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10134-10139-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "my choice whether we can do this by doing nothing or being dizzy i like that i do and i usually get on the right hand but i also like to relax and i feel that i dont actually learn that very often",
+      "whisper": {
+        "audio_transcription": "my ideal way to spend the weekend is by doing nothing or playing dd i like that too and i usually play it on the weekend but i also like to relax and i feel like i dont actually do that very often",
+        "distance": 0.301,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "im together wait every began typically during nothing cut kind names state im might two york band usually played other began end but office might took rest why access im like able much feature back buried york him",
+        "distance": 0.6385,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10153-10149-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "take a lot of time and return to the beginning",
+      "whisper": {
+        "audio_transcription": "he sank back sighing and was soon asleep again",
+        "distance": 0.7609,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "studied access lived said western feature",
+        "distance": 0.7391,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10155-10149-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "well three inches have no eyes",
+      "whisper": {
+        "audio_transcription": "will you tell me why",
+        "distance": 0.7,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "thats cut need italian high i",
+        "distance": 0.8667,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10266-10286-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "but greatness have been doing that so its what family members are usually we like to go to third world or we go the beach which is spot at that time said it was nature and then looked its fruit now after that and",
+      "whisper": {
+        "audio_transcription": "my ideal way to spend a weekend is going somewhere fun with my partner usually we like to go up to the woods or we go to the beach and we just spend that time sitting with nature eating delicious food that i dont have to cook and",
+        "distance": 0.5371,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "its play deal week standing meet standing day studied six royal front play heart river he joined meet active got change dark but play school really down keep beach began feature six especially active high because same feature really even looks youre which said child appear its have his band king land books",
+        "distance": 0.6743,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10276-10296-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "so along the way i have different types of music i guess the present that i would choose to listen to is probably pumping your music but it does take a long time to it i dont swing flakes or im almost flakes i like the original part but i didnt feel anything up until early so",
+      "whisper": {
+        "audio_transcription": "so i dont know if i have a favorite type of music i guess the music that i would choose to listen to is probably popular music because i can sing along to it i also like screamo music because i like the emotion behind it but i definitely am a singer and so",
+        "distance": 0.4457,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "but its side london often hand see greek take its set plan active west sand we music get band change similar sent year bay west however greek given meet taken take take single my throughout its make are town greek class my age are greek three matter blue take take like any matches high left band i often agreed members see near instead help",
+        "distance": 0.7155,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10294-10269-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "she always did before and she knows how much comfort",
+      "whisper": {
+        "audio_transcription": "she always did before and showed the utmost confidence",
+        "distance": 0.3889,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "most she always paper following youre names ship to access kind band",
+        "distance": 0.6618,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10294-10282-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "she always said before it shows that i miss comfort and whenever we invite",
+      "whisper": {
+        "audio_transcription": "she always did before and showed the utmost confidence in whatever we advised",
+        "distance": 0.3636,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "most she always paper following youre names ship to access kind band second my everyone meet is highest",
+        "distance": 0.6408,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10498-10509-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "the mercury alone on this roof she is in a dark blue background and is the only time in the cover well saying teaching is a rare dish what does this have to do with very important this news even limits the big divided package prior to a drone protecting both",
+      "whisper": {
+        "audio_transcription": "the birch canoe slid on the smooth planks glue the sheet to the dark blue background its easy to tell the depth of a well these days a chicken leg is a rare dish rice is often served in round bowls the juice of lemons makes fine punch the box was thrown beside the parking",
+        "distance": 0.6397,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "memorial character can meet rose its place album system greek court memorial base seen take dark please come popular wood today take take cities started dark im out well memorial bay age take names greek everyone very take british running there able county separate will river both memorial see studied lines instead greek fine project match running dark first turned best site heart",
+        "distance": 0.7102,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10507-10516-playht.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "is reported by the environment and",
+      "whisper": {
+        "audio_transcription": "as a rural parttime farmers higher little health",
+        "distance": 0.7708,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "i several greek take further present higher hospital",
+        "distance": 0.7115,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10522-10508-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "the system you need to break in somewhere but you cant still have these california aspects",
+      "whisper": {
+        "audio_transcription": "the season between spring and summer belongs to life in its carefree aspect",
+        "distance": 0.6,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "keep season between was great are my songs took life it greek greek that but",
+        "distance": 0.7444,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10525-10513-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "ive never been to any deep stomach i love deep stuff in the way that you can express your feelings your thoughts emotion and love the feelings that emotions that are involved from that type of media and so this is one of my absolute favorite things",
+      "whisper": {
+        "audio_transcription": "my favorite music is dubstep i love dubstep for the way that you can express your feelings your thoughts and emotions i love the feelings thoughts and emotions that are evoked from that type of music and i also love the deep deep bass notes when played on subs its one of my absolute favorite things",
+        "distance": 0.3712,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "but paper meet take dark sand give take left thats access no way lake makes space certain view main mr thought access commercial tell allowed best piano lake started second social minister dark ill front access got music let why castle lack been gave take bay started stop but vehicles side its further great access look free greek game",
+        "distance": 0.7083,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10548-10560-playht.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "of my favourite musics i didnt know about i like he would have a clue because theres light complex i like to start with the ending of my work that youre pumping with i like my condition but its becoming it makes me watch these cats it makes me remember what a its also a classic gpa",
+      "whisper": {
+        "audio_transcription": "my favorite music is disco disco and pop i like things with catchy tunes that you can sing to that are upbeat i like disco for the dancing and also you know the pumpkin rhythm and i like it because it just it makes me happy it makes me want to dance it makes me remember how fun it was during the hustle in 1978",
+        "distance": 0.5627,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "i paper music gets this them when this daughter top there like ancient type feature features same canada heart each our im my this daughter day ancient hall snow then out including greek them when we eyes give be as just take its half state grand he main take want team else my it main your members help former what has joined hot southern names king set day",
+        "distance": 0.7011,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10563-10533-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "the fear of my species",
+      "whisper": {
+        "audio_transcription": "the fear of punishment just didnt bother me",
+        "distance": 0.6047,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "its year published may just take bar",
+        "distance": 0.6944,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10641-10638-real.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "wanting to be there is true you know wanting to be there with pros",
+      "whisper": {
+        "audio_transcription": "what is my favorite food pizza what is my favorite movie",
+        "distance": 0.7424,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "but what western social keep so wearing must career movie",
+        "distance": 0.697,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10646-10640-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "conversation of course has been before us or never changes",
+      "whisper": {
+        "audio_transcription": "the advertising verse of plymouth variety store never changes",
+        "distance": 0.5902,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "piano returned using person among right least short matter rich engine is",
+        "distance": 0.6986,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10648-10644-playht.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "thank you you know whats next for that screen where im playing a computer video games all day long consumer service you say that they lose a bunch of coupons in the grocery store large amounts in the grocery store of stuff",
+      "whisper": {
+        "audio_transcription": "hello hello hello what did i do yesterday well i played on the computer video games all day long this work in some surveys some studies that those in about some dinner we went to the grocery store melons about some groceries and all that good stuff",
+        "distance": 0.5242,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "allow lot hold know what idea yet drink clear fire fight power appeared video games saw played long does working songs served raised stop least several passed me general were to birds finished own arms passed broke street months right you stop",
+        "distance": 0.6543,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10660-10634-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "worked on the variety of the series",
+      "whisper": {
+        "audio_transcription": "the new birth is miraculous and mysterious",
+        "distance": 0.6905,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "youre birds could right must minister area",
+        "distance": 0.7381,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/latentsync-10661-10633-playht.mp4",
+      "ground_truth": "fake",
+      "method": "latentsync",
+      "video_transcription": "first i wanted to click was how much is this",
+      "whisper": {
+        "audio_transcription": "there is definitely some ligament damage in his knee",
+        "distance": 0.7115,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10127-10134-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "well see you next time author or please click along the corner or something on the weekend with when i do all that stuff with a car accident or ive got a car with it",
+      "whisper": {
+        "audio_transcription": "my ideal way to spend the weekend is by doing nothing or playing dd i like that too and i usually play it on the weekend but i also like to relax and i feel like i dont actually do that very often",
+        "distance": 0.6939,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10134-10139-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "and im thinking i actually did crack a tree right because i was about to crack it i also im getting overrides right now so this is really really so wait what you can do",
+      "whisper": {
+        "audio_transcription": "yesterday i played dungeons and dragons with friends it was very fun i also ended up playing overwatch with friends too so it was a pretty fun day for me but a little uneventful overall",
+        "distance": 0.7405,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "im lets history even played turned and canada within end various current my term high hot term under talk train are brown track band district set always greek attended paper real running they my end album original under",
+        "distance": 0.7352,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10137-10136-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "other types of workbook apps are concerned with books with defi",
+      "whisper": {
+        "audio_transcription": "her debut over perhaps the earlier scenes will emerge equally fine",
+        "distance": 0.7273,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10143-10149-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "clinical process miraculous",
+      "whisper": {
+        "audio_transcription": "the new birth is miraculous and mysterious",
+        "distance": 0.6905,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "they new bad its currently western theory death im",
+        "distance": 0.84,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10146-10137-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "ill see you in the next video",
+      "whisper": {
+        "audio_transcription": "the single curve line represents a specific formulation in a test example",
+        "distance": 0.7671,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "lets single current design read president french sent i california main ship took took quickly cup but",
+        "distance": 0.8333,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10153-10141-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "the men or the women or the people",
+      "whisper": {
+        "audio_transcription": "the mango and the papaya are in a bowl",
+        "distance": 0.5789,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10265-10290-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "i was working a lot with configuration as a really significant authority create a first listener",
+      "whisper": {
+        "audio_transcription": "but briefly the topping configuration must be examined for its inferences",
+        "distance": 0.6667,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "thats greek able top been can take year station matter take san front regular its king friends said since im",
+        "distance": 0.7222,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10266-10276-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "so i know the girls that i had for the first time on the test that are lowered in the irish so in round three rounds hormones in but theyre not always and not like i dont know im up there but i like to keep the gym high but i definitely am a singer so im going to be online and just make it easy for me to get to know it yeah",
+      "whisper": {
+        "audio_transcription": "so i dont know if i have a favorite type of music i guess the music that i would choose to listen to is probably popular music because i can sing along to it i also like screamo music because i like the emotion behind it but i definitely am a singer and so popular music is easy for me to relate to and sing",
+        "distance": 0.6092,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "but its high london another hand see greek take its next plan active has sand we music give band change center west year even its cut each given meet take take state including months throughout its we town greek office my age are but three matter youth next it like any township high left band i film leave within at said help but women said active history six take be meet given week year take gold",
+        "distance": 0.7043,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10266-10286-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "an option that in my position might help you find it supplies things around surgery where the air comes in the top where the air comes out and it breaks up like",
+      "whisper": {
+        "audio_transcription": "an object that i can see in my current position is my air purifier its black and its round its cylinder shaped it has little holes where the air comes in and the top where the air comes out and its a brand called pyrotex",
+        "distance": 0.4818,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "he high cant take given take hand age many greek air appear fire but black its currently instead my christian once it has with off schools was ive appear kind team car at air country sound its he hand take instead gold has great car period attack states gold",
+        "distance": 0.7209,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10280-10275-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "inside of the child is the adult self",
+      "whisper": {
+        "audio_transcription": "that is what childhood is he told himself",
+        "distance": 0.561,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "im its greek child let day history for team south please",
+        "distance": 0.6964,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10516-10517-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "the fear and punishment is the mothering",
+      "whisper": {
+        "audio_transcription": "the fear of punishment just didnt bother him",
+        "distance": 0.3636,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10519-10501-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "yesterday i walked on a shipped cayenne block and also has third barbecue for xray decorations horses in florida us and thai and i went to the laundry plant because her tracker is broken",
+      "whisper": {
+        "audio_transcription": "yesterday i worked on a gypsy that i am making out of a large barbie doll for halloween decorations i completed some courses online for ux design and i went to the laundry mat because our dryer is broken",
+        "distance": 0.4631,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10528-10522-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "that exists in between spring and summer beyond the life and its carefree aspect thank you",
+      "whisper": {
+        "audio_transcription": "the season between spring and summer belongs to life in its carefree aspect",
+        "distance": 0.2889,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10541-10533-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "",
+      "whisper": {
+        "audio_transcription": "will you tell me why",
+        "distance": 1.0,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "running lets running year killed main world under",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10545-10537-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "thank you in the next video",
+      "whisper": {
+        "audio_transcription": "that stinging vapor was caused by chloride vaporization",
+        "distance": 0.7455,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "running there instead main game early put five five floor high take race take ship why running",
+        "distance": 0.8191,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10555-10535-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "yes i walked into the theater and then i had doctors appointment and after my doctors appointment i went to on being able to stay out and then on both my husband and i had a discussion",
+      "whisper": {
+        "audio_transcription": "yesterday i worked until 3 pm and then i had a doctors appointment and after my doctors appointment i went to olive garden and picked up some takeout i gave both my husband and i indigestion",
+        "distance": 0.3579,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "under we history take look worked central we media walk band allowed township point lets lines half joined die give point take way lets keep own ill part names can that subject take dark then king power provided attended attended high game piano state thus",
+        "distance": 0.6797,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10637-10643-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "black and white from black are in the blue",
+      "whisper": {
+        "audio_transcription": "the mango and the papaya are in the bowl",
+        "distance": 0.5476,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "among make allowed end cover style hard radio law",
+        "distance": 0.7755,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10642-10651-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "dont bother to read that book",
+      "whisper": {
+        "audio_transcription": "the fear of punishment just didnt bother him",
+        "distance": 0.8182,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "but year population major piano art noted if",
+        "distance": 0.7727,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10650-10646-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "i have to get off tour because ive been on tour for a while and touring every day",
+      "whisper": {
+        "audio_transcription": "the advertising verse of pmos variety store never changes",
+        "distance": 0.7407,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "they more kind think first find must dark right joined never think teams",
+        "distance": 0.7778,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/liveportrait-10665-10644-real.mp4",
+      "ground_truth": "fake",
+      "method": "liveportrait",
+      "video_transcription": "well i dont have to look at what i hear of course you have to so i dont follow the rules i dont feel like oh you have to follow the rules of rock and its still hard on the nerve to get the left hand right im fucking out because of course you fucking hate classical",
+      "whisper": {
+        "audio_transcription": "what is your favorite type of music and why my favorite type of music is probably spanish music because it fits to all type of genres like rock ugly and all that good stuff you got the left side the right side all playing at once never just one side and the other",
+        "distance": 0.7083,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "if once decided third music him art man he through san community give park state include keep the first art friend john final rest he might rock ive me all do started thats best site west southern art career want there much works under yellow step",
+        "distance": 0.7614,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10127-10139-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "yesterday i played the tracks with friends it was very fun i also went to some being overwashed with friends too so that was pretty funny actually to me",
+      "whisper": {
+        "audio_transcription": "yesterday i played dungeons dragons with friends it was very fun i also ended up playing overwatch with friends too so it was a pretty fun day for me but a little edit and full",
+        "distance": 0.3466,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "lets director entire design take critics friend are running said find running health joined access multiple battle much france king stop other critics under can state under other i band evidence followed",
+        "distance": 0.6995,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10127-10139-playht.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "he took a complete sentence to try it with a friend it was very fun and im playing overwatch with friends too so it was a brilliant idea for me clark in full",
+      "whisper": {
+        "audio_transcription": "yesterday i played dungeons dragons with friends it was very fun i also ended up playing overwatch with friends too so it was a pretty fun day for me but a little edit in full",
+        "distance": 0.4,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10131-10152-real.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "please all stop i show you the plantbased land from a store sell the booze pressure companies find some out of this lab to jesus maybe its not for a brother mom we also keep as i say in a minute 24 minutes she is so busy with like bags but no meter would take a tram station",
+      "whisper": {
+        "audio_transcription": "please call stella ask her to bring these things with her from the store six spoons of fresh snow peas five thick slabs of blue cheese and maybe a snack for her brother bob we also need a plastic snake and a big toy frog for the kids she can scoop these things into three red black bags and we will go meet her wednesday at the train station",
+        "distance": 0.563,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "thats they cup film an im project written this bay construction white im its paper mostly ive professional place while access ive further access every teams band left after dark about hot thus we asked only attack its attended take greek traffic its its but events typically studied did three wrote black back national according wrote but go mainly heart point success end change feature under",
+        "distance": 0.7074,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10142-10147-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "questions came to me from all sides about my royalty in such capacities",
+      "whisper": {
+        "audio_transcription": "questions came to me from all sides about my world citizenship activities",
+        "distance": 0.2603,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "greek history take office access available production active it",
+        "distance": 0.7465,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10145-10138-real.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "theres a fair package built just in the other room",
+      "whisper": {
+        "audio_transcription": "the fear punishment just didnt bother him",
+        "distance": 0.54,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "im does dark other show gets paper others am under",
+        "distance": 0.82,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10266-10296-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "that i made in progress i watched a couple of movies for halloween i tend to build a primary area with my partner a lot my little camps and i watched them for a little while and then we went to bed",
+      "whisper": {
+        "audio_transcription": "yesterday i made breakfast i watched a couple of movies for halloween i did some meal prep and i hung out with my partner a lot he played video games and i watched him for a little while and then we went to bed",
+        "distance": 0.281,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "lets band main car class stop im west couple men take how game im main sun my take sent killed car coming health matter regular allowed most including year king six town director white student friends allowed during greek which but bad under",
+        "distance": 0.6971,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10267-10288-real.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "the book used in our gospel plants sheet so they start to pull back around they sit slowly tips everywhere these days actually look like as a regular cleansing white softness of the rounded bowls they make some fine but this one still holds me tight the part in the trunk also reflect top coil on my gym four hours of study went on to face touch a large slack that in the audience is also",
+      "whisper": {
+        "audio_transcription": "the bird canoe slid on the smooth planks glue the sheet to the dark blue background its easy to tell the depths of a well these days a chicken leg is a rare dish rice is often served in round bowls the juice of lemons make fine punch the box was thrown beside the parked truck the hogs were fed chopped corn and garbage four hours of steady work faced us a large size in stockings is hard to sell",
+        "distance": 0.596,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "make put valley class way common similar typically does crew initially too car please back currently took its cities taken top car several allowed up this day get change king matter late its year great regular wish great six party second am king brown own called stop please keep said went mostly mean to fine time beach thus top access described best band but heart its track cut but high third band top required entire age shortly heart second studied black space best who lack success identity started king gets heart stop",
+        "distance": 0.6724,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10270-10285-real.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "as the difference always start were going to go towards the end make your bar",
+      "whisper": {
+        "audio_transcription": "positive results start when it goes towards the hand you use to make your mark",
+        "distance": 0.5641,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "ask band greek thought start what take best royal said game released two meet youre art does im",
+        "distance": 0.6947,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10276-10296-playht.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "so they made me this i watched a couple of movies for halloween i made some basic simple and i get hung out with my partner a lot and i play video games and i watch them for a little while and then we went to bed",
+      "whisper": {
+        "audio_transcription": "yesterday i made breakfast i watched a couple of movies for halloween i made some i did some meal prep and i hung out with my partner a lot he played video games and i watched him for a little while and then we went to bed",
+        "distance": 0.2027,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "its take meet practice second west couple no increase personal meet room running meet second my take something killed practice im behind help play heart allowed clear take give game seven watch two front level island took went took band our",
+        "distance": 0.65,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10287-10277-real.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "as it wore by dan farmers little home",
+      "whisper": {
+        "audio_transcription": "as a rule parttime farmers hire little help",
+        "distance": 0.4884,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "but im wrote lot car change car its higher would songs thus",
+        "distance": 0.678,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10295-10287-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "yeah its cold and easy for us all in regards to birth control today",
+      "whisper": {
+        "audio_transcription": "that experience holds a lesson for us all in regard to birth control today",
+        "distance": 0.2838,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "cut period top top access france thought went character country property band",
+        "distance": 0.7662,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10519-10501-playht.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "history were egyptian and making out of a large burma known for halloween decorations complete is important in their life for us is that they went to a longterm happiness childs broken",
+      "whisper": {
+        "audio_transcription": "yesterday i worked on a gypsy that i am making out of a large barbie doll for halloween decorations i completed some courses online for ux design and i went to the laundry map because our dryer is broken",
+        "distance": 0.468,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10528-10499-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "your main size care measures sleeping bag",
+      "whisper": {
+        "audio_transcription": "neither are beds thanks to air mattresses and sleeping bags",
+        "distance": 0.5932,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "why dark bad success able its access greek greek access lets",
+        "distance": 0.7167,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10531-10511-playht.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "going away",
+      "whisper": {
+        "audio_transcription": "will you tell me why",
+        "distance": 0.8,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10535-10560-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "you went to spend the weekend just relax a little bit on saturday when youre dead thats when youre dead thats when youre dead and ill see you in the next video ill be making some croft change throughout its not going to be swept it will be swept up and maybe watch a movie",
+      "whisper": {
+        "audio_transcription": "i do wait to spend the weekend just kind of relax a little bit on saturday do a little cleaning maybe a little laundry sunday get up early and start doing meal prep for whatever big meal im making that week for example this week ill be making some crawfish a2f so ill get up early ill get on my vegetables chopped and ready to go and then ill start cooking and then we can sit down and have a delicious meal and maybe watch a movie",
+        "distance": 0.5684,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "i your lake said began french lets project got lot access album events san letter age there talk road running field world country did lets sun left canada power lake there start joined killed private further big view wanted age black lake did give example test point ill take second project state joined mr lot at royal called given my village falls try mr greek died hot lets battle start point there left written second town took hospital which season york take making largest be did",
+        "distance": 0.7175,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10544-10534-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "can make you get the papaya or its a big",
+      "whisper": {
+        "audio_transcription": "the mango and the papaya are in a bowl",
+        "distance": 0.45,
+        "prediction": "real"
+      },
+      "purescribe": {
+        "audio_transcription": "but main always up fire operations full",
+        "distance": 0.8,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10559-10543-real.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "the need for love for young people is simply to see its a stability",
+      "whisper": {
+        "audio_transcription": "need for novelty may be a symptom of cultural fatigue and instability",
+        "distance": 0.6232,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "under his meet friends album chief main lady said took good called office change lets james built state im running",
+        "distance": 0.7368,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10639-10644-playht.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "with the new friend which i promoted my friend with i promote independent community vintage on top of charts which like you are you know related to stuff and raise that opaque one ive heard some noise like a little",
+      "whisper": {
+        "audio_transcription": "what is your favorite type of music and why my favorite type of music is spanish music because it fits into all type of genres like rock ugly and all that good stuff you got the left side the right side all playing at once never just one side and the other",
+        "distance": 0.7031,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "",
+        "distance": 1.0,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10639-10648-elevenlabs.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "and when the library has a network mba on the computer video games hes walking handsome and then some chinese and then those somehow subject we went to the grocery store and met is about the charged because they all like to discuss",
+      "whisper": {
+        "audio_transcription": "hello hello hello what did i do yesterday well i played on the computer video games all day long this work and some surveys some studies that those and about some dinner we went to the grocery store melons about some groceries and all that good stuff",
+        "distance": 0.528,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "i allow what right areas railway right played middle on computer video games step father car him there work air songs served base show started released they dog never songs gave learn step away keep across trees door now london passed wrote reason role were will stop step",
+        "distance": 0.6765,
+        "prediction": "fake"
+      }
+    },
+    {
+      "video": "fake/memo-10661-10633-speechify.mp4",
+      "ground_truth": "fake",
+      "method": "memo",
+      "video_transcription": "you know opting multiple of the requirements for the finalization of the winning board",
+      "whisper": {
+        "audio_transcription": "there are optimal humidity requirements for various agents when airborne",
+        "distance": 0.6047,
+        "prediction": "fake"
+      },
+      "purescribe": {
+        "audio_transcription": "youre office most give radio required rest further very stage were matter court",
+        "distance": 0.6395,
+        "prediction": "fake"
+      }
+    }
+  ]
+}

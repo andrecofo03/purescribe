@@ -4,13 +4,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
+import tempfile
 from pathlib import Path
 
 import numpy as np
 
 
 def _cmd_train(args) -> int:
+    if Path(args.output).exists():
+        raise FileExistsError(f"{args.output}; choose a new model filename")
     from .features import FeatureConfig
     from .train import TrainConfig, train_from_directory
 
@@ -30,7 +34,15 @@ def _cmd_train(args) -> int:
         if not args.quiet:
             print(f"bigram grammar fitted on {len(sentences)} sentences")
 
-    out = rec.save(args.output)
+    out = Path(args.output)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # Publish a complete model exclusively, including if another run finished meanwhile.
+    with tempfile.TemporaryDirectory(prefix=".purescribe-train-", dir=out.parent) as staging:
+        staged = rec.save(Path(staging) / "model.psm")
+        if sys.platform == "win32":
+            staged.rename(out)  # Windows rename refuses an existing destination.
+        else:
+            os.link(staged, out)
     print(f"saved {out}  ({out.stat().st_size / 1024:.1f} kB, "
           f"vocabulary {len(rec.lexicon)})")
     return 0
@@ -179,6 +191,9 @@ def main(argv=None) -> int:
     args = build_parser().parse_args(argv)
     try:
         return args.func(args)
+    except FileExistsError as e:
+        print(f"purescribe: output already exists: {e}", file=sys.stderr)
+        return 2
     except (FileNotFoundError, NotADirectoryError) as e:
         print(f"purescribe: not found: {e}", file=sys.stderr)
         return 2

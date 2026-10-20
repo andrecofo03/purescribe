@@ -1,0 +1,8 @@
+separare parole all'interno della trascrizione, trovare all'interno dell'audio l'istante (se la trascrizione di ogni file corrisponde al secondo all'interno del file audio) whisper fa la segmentazione (recupera il timestamp di ogni parola dai file audio, whisper genera una nuova trascrizione con timestamp, quando una parola corrisponde alla trascrizione che già ho uso quel timestamp (evidentemente è corretto) altrimenti ignoro quel segmento), dopodichè usare le parole di commonvoice, inserirle all'interno di purescribe e vedere come va il processo di trascrizione. usiamo il validation set per vedere se effettivamente il processo funziona, quindi a quel punto con piu parole (infatti purescribe richiede piu clip per ogni parola)
+
+obiettivo tesi parte audio:
+uso la baseline di lost in translation su un set di dati, se rendo compliant la parte audio (ovvero usare purescribe per la trascrizione senza basarsi su quella di whisper, che si usa solo per i timestamp) quali sono le mie performance al netto degli stessi dati e vediamo quanto siamo migliorati o peggiorati
+
+
+compito per prox call:
+realizzare delle slide riassuntive riguardo al tipo di pipeline utilizzata
