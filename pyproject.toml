@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "purescribe"
+version = "0.1.0"
+description = "Classical DSP speech recognition with MFCC features and HMM-GMM models."
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22", "scipy>=1.8"]
+
+[project.optional-dependencies]
+pipeline = ["whisperx==3.8.6"]
+
+[project.scripts]
+purescribe = "purescribe.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["purescribe*"]
