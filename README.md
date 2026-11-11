@@ -31,7 +31,7 @@ python -m pip install -e ".[pipeline]"
 WhisperX trova i tempi delle parole nell'audio. Il testo ufficiale Common Voice fornisce le etichette dei clip. Il risultato è una cartella con sottocartelle, una per parola, e file WAV.
 
 ```cmd
-python commonvoice_purescribe.py extract --data-root corpus --audio-dir <corpus\validated> --transcription-file <corpus\validated.tsv> --output .<\validated_new>
+python commonvoice_purescribe.py extract --data-root corpus --audio-dir <corpus\validated> --transcription-file <corpus\validated.tsv> --output .\validated_new
 ```
 
 Scegli una nuova cartella di output.

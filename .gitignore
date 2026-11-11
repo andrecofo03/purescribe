@@ -1,0 +1,8 @@
+CLAUDE.md
+AGENTS:md
+*settings.json
+settings.local.json
+.agents
+.claude
+__pycache__
+corpus/validated/
