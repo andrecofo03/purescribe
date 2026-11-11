@@ -31,7 +31,7 @@ python -m pip install -e ".[pipeline]"
 WhisperX trova i tempi delle parole nell'audio. Il testo ufficiale Common Voice fornisce le etichette dei clip. Il risultato è una cartella con sottocartelle, una per parola, e file WAV.
 
 ```cmd
-python commonvoice_purescribe.py extract --data-root corpus --audio-dir corpus\validated --transcription-file corpus\validated.tsv --output .\validated_new
+python commonvoice_purescribe.py extract --data-root corpus --audio-dir <corpus\validated> --transcription-file <corpus\validated.tsv> --output .<\validated_new>
 ```
 
 Scegli una nuova cartella di output.
@@ -54,13 +54,13 @@ python lost_in_translation.py transcribe --model .\model_new.psm --baseline-tran
 
 ### 6. Confrontare i risultati
 
-Il confronto usa testi già pronti: la trascrizione audio di Whisper e quella del labiale. Confronta anche il testo di PureScribe con quello del labiale e salva i risultati in un JSON. Se la differenza supera la soglia, il video viene segnato come fake. 
+Il confronto usa testi già pronti: la trascrizione audio di Whisper e quella del labiale. Confronta anche il testo di PureScribe con quello del labiale e salva i risultati in un JSON. 
 
 ```cmd
-python lost_in_translation.py compare --baseline-transcripts C:\percorso\transcriptions --subset test --purescribe .\run_new.tsv --threshold 0.5 --output .\metrics_new.json
+python lost_in_translation.py compare --baseline-transcripts <\percorso\transcriptions> --subset test --purescribe .\run_new.tsv --threshold 0.5 --output .\metrics_new.json
 ```
 
-La soglia predefinita è `0.5`. Puoi indicare un'altra soglia con `--threshold`. Per usare un nuovo export Auto-AVSR, passa anche `--avsr-transcripts` e `--avsr-manifest`.
+La soglia predefinita è `0.5`. Puoi indicare un'altra soglia con `--threshold`.
 
 ## Comandi PureScribe
 
@@ -73,5 +73,5 @@ python -m purescribe.cli info .\model_new.psm
 python -m purescribe.cli features .\audio.wav
 ```
 
-Sostituisci `cartella_wav` e `audio.wav` con i tuoi percorsi. Usa un nome nuovo per `model_new.psm`.
+Sostituisci `cartella_wav` e `audio.wav` con i tuoi percorsi.
 
